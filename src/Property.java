@@ -4,22 +4,25 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public abstract class Property {
-    int id;
-    int price;
-    int l_size;
+    private int id;
+    private int price;
+    private int l_size;
 
-    boolean isForSale;
-    Date saleDate;
+    private boolean isForSale;
+    private Date saleDate;
+    private String location;
 
     public Property(int id,
                     int price,
                     int l_size,
                     boolean isForSale,
-                    String saleDate){
+                    String saleDate,
+                    String location){
         this.id = id;
         this.price = price;
         this.l_size = l_size;
         this.isForSale = isForSale;
+        this.location = location;
         if (saleDate.equals("N/A")){
             this.saleDate = null;
         }
@@ -51,5 +54,9 @@ public abstract class Property {
 
     public Date getSaleDate() {
         return saleDate;
+    }
+
+    public String getLocation() {
+        return location;
     }
 }

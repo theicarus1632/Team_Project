@@ -1,12 +1,12 @@
 import java.util.ArrayList;
 
 public class Agent extends People {
-    int salary;
-    int commissions;
+    private int salary;
+    private int commissions;
 
     // TODO: How to represent a manager - planning to make subclass, open to
     // suggestions though.
-    int managerID;
+    private int managerID;
 
     public Agent(int id,
                   String name,

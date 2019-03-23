@@ -1,6 +1,6 @@
 public class Client extends People {
 
-    int referralNo;
+    private int referralNo;
 
     public Client(int id,
                   String name,

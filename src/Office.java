@@ -1,10 +1,10 @@
 public class Office {
-    int id;
+    private int id;
 
-    String location;
-    String address;
+    private String location;
+    private String address;
 
-    int managerID;
+    private int managerID;
 
     public Office(int id,
                   String location,

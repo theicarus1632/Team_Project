@@ -1,11 +1,11 @@
 public abstract class People
 {
-    int id;
+    private int id;
 
-    String name;
-    String address;
-    String email;
-    String phone;
+    private String name;
+    private String address;
+    private String email;
+    private String phone;
 
     public People(int id,
                   String name,

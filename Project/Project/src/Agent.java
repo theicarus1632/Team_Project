@@ -23,9 +23,9 @@ public class Agent extends People {
     }
 
     public Agent(String[] data){
-        super(Integer.parseInt(data[0]), data[1], data[2], data[3], data[4]);
-        this.salary = Integer.parseInt(data[5]);
-        this.commissions = Integer.parseInt(data[6]);
+        super(Integer.parseInt(data[0]), data[1], data[3]+data[4], data[5], data[6]);
+        this.salary = Integer.parseInt(data[2]);
+        this.commissions = Integer.parseInt(data[7]);
         /* Not sure how data for commissions may be passed in*/
         // TODO:
 /*

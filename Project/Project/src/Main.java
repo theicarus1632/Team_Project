@@ -47,6 +47,15 @@ public class Main {
             e.printStackTrace();
         }
     }
+    public void dropTable(Connection conn, String tableName) {
+        String query = "DROP TABLE IF EXISTS " + tableName;
+        try {
+            Statement stmt = conn.createStatement();
+            stmt.execute(query);
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
 
     public static void main(String[] args) {
         Main test = new Main();
@@ -57,10 +66,25 @@ public class Main {
         test.createConnection(location, user, password);
 
         try {
+/*
             ClientTable.createClientTable(test.getConnection());
             ClientTable.populateClientTableFromCSV(test.getConnection(),
                     "clients.csv");
             ClientTable.printClientTable(test.getConnection());
+            test.dropTable(test.getConnection(), "client");
+
+            AgentTable.createAgentTable(test.getConnection());
+            AgentTable.populateAgentTableFromCSV(test.getConnection(),
+                    "agents.csv");
+            AgentTable.printAgentTable(test.getConnection());
+            test.dropTable(test.getConnection(), "agent");
+*/
+
+            OfficeTable.createOfficeTable(test.getConnection());
+            OfficeTable.populateOfficeTableFromCSV(test.getConnection(),
+                    "offices.csv");
+            OfficeTable.printOfficeTable(test.getConnection());
+            test.dropTable(test.getConnection(), "office");
 
         } catch (SQLException e){
             e.printStackTrace();

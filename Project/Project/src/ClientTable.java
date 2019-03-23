@@ -130,7 +130,7 @@ public class ClientTable {
             Statement stmt = conn.createStatement();
             ResultSet result = stmt.executeQuery(query);
             while(result.next()){
-                System.out.printf("Client %d: %s %s %s %s\n",
+                System.out.printf("Client %d: %s\t%s\t%s\t%s\n",
                         result.getInt(1),
                         result.getString(2),
                         result.getString(3),
@@ -141,4 +141,5 @@ public class ClientTable {
             e.printStackTrace();
         }
     }
+
 }

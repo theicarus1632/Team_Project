@@ -18,7 +18,7 @@ public class Office {
 
     public Office(String[] data){
         // TODO: figure out managerID
-        this(Integer.parseInt(data[0]), data[1], data[2], Integer.parseInt(data[3])/*new Agent(new String[7])*/);
+        this(Integer.parseInt(data[0]), data[1], data[2]+data[3], Integer.parseInt(data[4])/*new Agent(new String[7])*/);
     }
 
     public int getId() {

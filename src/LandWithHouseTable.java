@@ -136,7 +136,7 @@ public class LandWithHouseTable {
 
         for(int i = 0; i < landWithHouses.size(); i++){
             LandWithHouse lwh = landWithHouses.get(i);
-            sb.append(String.format("(%d,\'%b\',\'%d\',\'%s\',\'%s\',\'%d\',\'%d\',\'%d\',\'%d\'')",
+            sb.append(String.format("(%d,\'%b\',\'%d\',\'%s\',\'%s\',\'%d\',\'%d\',\'%d\',\'%d\')",
                     lwh.getId(), lwh.isForSale(), lwh.getPrice(), lwh.getSaleDate(), lwh.getLocation(), lwh.getL_size(),
                     lwh.getBedCount(), lwh.getBathCount(), lwh.getH_size()));
             if( i != landWithHouses.size()-1){

@@ -1,4 +1,3 @@
-import java.util.Date;
 
 public class LandWithoutHouse extends Property {
 
@@ -17,7 +16,7 @@ public class LandWithoutHouse extends Property {
 
     public LandWithoutHouse(String[] data){
         this(Integer.parseInt(data[0]), Integer.parseInt(data[1]),Integer.parseInt(data[2]),
-                Boolean.parseBoolean(data[3]), data[4], data[5], data[6]);
+                Boolean.parseBoolean(data[3]), data[4], data[5]+data[6], data[7]);
     }
 
     public String getLandClass() {

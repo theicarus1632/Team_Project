@@ -97,7 +97,7 @@ public class LandWithoutHouseTable {
          * SQL insert statement
          */
         String query = String.format("INSERT INTO landWithoutHouse " +
-                        "VALUES(%d,\'%b\',\'%d\',\'%s\',\'%s\',\'%d\',\'%s\',\');",
+                        "VALUES(%d,\'%b\',\'%d\',\'%s\',\'%s\',\'%d\',\'%s\');",
                 id, isForSale, price, saleDate, location, l_size,landClass);
         try {
             /**
@@ -132,7 +132,7 @@ public class LandWithoutHouseTable {
 
         for(int i = 0; i < landWithoutHouses.size(); i++){
             LandWithoutHouse lwh = landWithoutHouses.get(i);
-            sb.append(String.format("(%d,\'%b\',\'%d\',\'%s\',\'%s\',\'%d\',\'%s\',\'')",
+            sb.append(String.format("(%d,\'%b\',\'%d\',\'%s\',\'%s\',\'%d\',\'%s\')",
                     lwh.getId(), lwh.isForSale(), lwh.getPrice(), lwh.getSaleDate(), lwh.getLocation(), lwh.getL_size(),
                     lwh.getLandClass()));
             if( i != landWithoutHouses.size()-1){

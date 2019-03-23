@@ -22,9 +22,9 @@ public class LandWithHouse extends Property {
         this.h_size = h_size;
     }
     public LandWithHouse(String[] data){
-        this(Integer.parseInt(data[0]), Integer.parseInt(data[1]),Integer.parseInt(data[2]),
-                Boolean.parseBoolean(data[3]), data[4], data[5], Integer.parseInt(data[6]),
-                Integer.parseInt(data[7]), Integer.parseInt(data[8]));
+        this(Integer.parseInt(data[0]), Integer.parseInt(data[2]),Integer.parseInt(data[6]),
+                Boolean.parseBoolean(data[1]), data[3], data[4]+data[5], Integer.parseInt(data[7]),
+                Integer.parseInt(data[8]), Integer.parseInt(data[9]));
     }
 
     public int getBedCount(){

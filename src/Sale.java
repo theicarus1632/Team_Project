@@ -39,8 +39,8 @@ public class Sale {
     }
 
     public Sale(String[] data){
-        this(Integer.parseInt(data[1]), data[2], Integer.parseInt(data[3]), Integer.parseInt(data[4]),
-                Integer.parseInt(data[5]), Integer.parseInt(data[6]), data[7]);
+        this(Integer.parseInt(data[0]), data[1], Integer.parseInt(data[2]), Integer.parseInt(data[3]),
+                Integer.parseInt(data[4]), Integer.parseInt(data[5]), data[6]+data[7]+data[8]);
     }
 
     public int getId() {

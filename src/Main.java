@@ -75,13 +75,13 @@ public class Main {
         test.createConnection(location, user, password);
 //        test.userInput();
         try {
-/*
+
             ClientTable.createClientTable(test.getConnection());
             ClientTable.populateClientTableFromCSV(test.getConnection(),
                     "clients.csv");
             ClientTable.printClientTable(test.getConnection());
             test.dropTable(test.getConnection(), "client");
-
+/*
             AgentTable.createAgentTable(test.getConnection());
             AgentTable.populateAgentTableFromCSV(test.getConnection(),
                     "agents.csv");
@@ -93,7 +93,7 @@ public class Main {
                     "offices.csv");
             OfficeTable.printOfficeTable(test.getConnection());
             test.dropTable(test.getConnection(), "office");
-*/
+
 
             LandWithHouseTable.createLandWithHouseTable(test.getConnection());
             LandWithHouseTable.populateLandWithHouseTableFromCSV(test.getConnection(),
@@ -107,6 +107,12 @@ public class Main {
                     "landWithoutHouse.csv");
             LandWithoutHouseTable.printLandWithoutHouseTable(test.getConnection());
             test.dropTable(test.getConnection(), "landWithoutHouse");
+*/
+            SalesTable.createSaleTable(test.getConnection());
+            SalesTable.populateSalesTableFromCSV(test.getConnection(),
+                    "sales.csv");
+            SalesTable.printSalesTable(test.getConnection());
+            test.dropTable(test.getConnection(), "sales");
 
         } catch (SQLException e){
             e.printStackTrace();

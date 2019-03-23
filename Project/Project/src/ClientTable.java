@@ -38,6 +38,7 @@ public class ClientTable {
                     + "PHONE VARCHAR(255),"
                     + "EMAIL VARCHAR(255),"
                     + "ADDRESS VARCHAR(255),"
+                    + "REFERRALNO INT,"
                     + ");" ;
             Statement stmt = conn.createStatement();
             stmt.execute(query);
@@ -50,10 +51,11 @@ public class ClientTable {
                                  String name,
                                  String phone,
                                  String email,
-                                 String address) {
+                                 String address,
+                                 int referralNo) {
         String query = String.format("INSERT INTO client " +
-                "VALUES(%d,\'%s\',\'%s\',\'%s\',\'%s\');",
-                id, name, phone, email, address);
+                "VALUES(%d,\'%s\',\'%s\',\'%s\',\'%s\',\'%d\');",
+                id, name, phone, email, address, referralNo);
         try {
             Statement stmt = conn.createStatement();
             stmt.execute(query);
@@ -63,11 +65,11 @@ public class ClientTable {
     }
     public static String createClientInsertSQL(ArrayList<Client> clients) {
         StringBuilder sb = new StringBuilder();
-        sb.append("INSERT INTO client (id, NAME, PHONE, EMAIL, ADDRESS) VALUES");
+        sb.append("INSERT INTO client (id, NAME, PHONE, EMAIL, ADDRESS, REFERRALNO) VALUES");
         for (int i = 0; i < clients.size(); i++) {
             Client c = clients.get(i);
-            sb.append(String.format("(%d,\'%s\',\'%s\',\'%s\',\'%s\')",
-                    c.getId(), c.getName(), c.getPhone(), c.getEmail(), c.getAddress()));
+            sb.append(String.format("(%d,\'%s\',\'%s\',\'%s\',\'%s\',\'%d\')",
+                    c.getId(), c.getName(), c.getPhone(), c.getEmail(), c.getAddress(), c.getReferralNo()));
             if (i != clients.size() - 1){
                 sb.append(",");
             }
@@ -130,12 +132,13 @@ public class ClientTable {
             Statement stmt = conn.createStatement();
             ResultSet result = stmt.executeQuery(query);
             while(result.next()){
-                System.out.printf("Client %d: %s\t%s\t%s\t%s\n",
+                System.out.printf("Client %d: %s\t%s\t%s\t%s\t%d\n",
                         result.getInt(1),
                         result.getString(2),
                         result.getString(3),
                         result.getString(4),
-                        result.getString(5));
+                        result.getString(5),
+                        result.getInt(6));
             }
         } catch (SQLException e) {
             e.printStackTrace();

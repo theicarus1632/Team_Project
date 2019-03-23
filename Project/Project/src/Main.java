@@ -1,5 +1,7 @@
+import java.io.Console;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
     private Connection conn;
@@ -56,7 +58,14 @@ public class Main {
             e.printStackTrace();
         }
     }
+    public void userInput(){
+        System.out.print("Enter your usertype (Ex: Manager, Database Administrator, Customer, Marketing): ");
+        Scanner scanner = new Scanner(System.in);
+        String usertype = scanner.nextLine();
+        System.out.println("Enter password associated with " + usertype);
+        String pswd = scanner.next();
 
+    }
     public static void main(String[] args) {
         Main test = new Main();
         String location = "./h2demo/h2demo";
@@ -64,9 +73,8 @@ public class Main {
         String password = "password";
 
         test.createConnection(location, user, password);
-
+//        test.userInput();
         try {
-/*
             ClientTable.createClientTable(test.getConnection());
             ClientTable.populateClientTableFromCSV(test.getConnection(),
                     "clients.csv");
@@ -78,7 +86,6 @@ public class Main {
                     "agents.csv");
             AgentTable.printAgentTable(test.getConnection());
             test.dropTable(test.getConnection(), "agent");
-*/
 
             OfficeTable.createOfficeTable(test.getConnection());
             OfficeTable.populateOfficeTableFromCSV(test.getConnection(),

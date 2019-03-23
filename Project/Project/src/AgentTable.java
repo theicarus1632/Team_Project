@@ -67,7 +67,9 @@ public class AgentTable {
                     + "EMAIL VARCHAR(255),"
                     + "ADDRESS VARCHAR(255),"
                     + "SALARY INT,"
-                    + "COMMISSIONS INT"
+                    + "COMMISSIONS INT,"
+                    + "MANAGERID INT,"
+                    + "CONSTRAINT FKMANAGER FOREIGN KEY (MANAGERID) REFERENCES agent (ID)"
                     + ");" ;
             // TODO: figure out what commissions is - int or list?
             /**
@@ -98,14 +100,15 @@ public class AgentTable {
                                 String email,
                                 String address,
                                 int salary,
-                                int commissions){
+                                int commissions,
+                                int managerID){
 
         /**
          * SQL insert statement
          */
         String query = String.format("INSERT INTO agent " +
-                        "VALUES(%d,\'%s\',\'%s\',\'%s\',\'%s\',\'%d\',\'%d\');",
-                id, name, phone, email, address, salary, commissions);
+                        "VALUES(%d,\'%s\',\'%s\',\'%s\',\'%s\',\'%d\',\'%d\',\'%d\');",
+                id, name, phone, email, address, salary, commissions, managerID);
         try {
             /**
              * create and execute the query
@@ -133,13 +136,14 @@ public class AgentTable {
          * the order of the data in reference
          * to the columns to add it to
          */
-        sb.append("INSERT INTO agent (id, NAME, PHONE, EMAIL, ADDRESS, SALARY, COMMISSIONS) VALUES");
+        sb.append("INSERT INTO agent (id, NAME, PHONE, EMAIL, ADDRESS, SALARY, COMMISSIONS, MANAGERID) VALUES");
 
 
         for(int i = 0; i < agents.size(); i++){
             Agent a = agents.get(i);
-            sb.append(String.format("(%d,\'%s\',\'%s\',\'%s\',\'%s\',\'%d\',\'%d\')",
-                   a.getId(), a.getName(), a.getPhone(), a.getEmail(), a.getAddress(), a.getSalary(), a.getCommissions()));
+            sb.append(String.format("(%d,\'%s\',\'%s\',\'%s\',\'%s\',\'%d\',\'%d\',\'%d\')",
+                   a.getId(), a.getName(), a.getPhone(), a.getEmail(), a.getAddress(),
+                    a.getSalary(), a.getCommissions(), a.getManagerID()));
             if( i != agents.size()-1){
                 sb.append(",");
             }
@@ -240,14 +244,15 @@ public class AgentTable {
             ResultSet result = stmt.executeQuery(query);
 
             while(result.next()){
-                System.out.printf("agent %d: %s %s %s %s %d %d\n",
+                System.out.printf("agent %d: %s %s %s %s %d %d %d\n",
                         result.getInt(1),
                         result.getString(2),
                         result.getString(3),
                         result.getString(4),
                         result.getString(5),
                         result.getInt(6),
-                        result.getInt(7));
+                        result.getInt(7),
+                        result.getInt(8));
             }
         } catch (SQLException e) {
             e.printStackTrace();

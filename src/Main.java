@@ -83,7 +83,7 @@ public class Main {
 
     private Users userInput(){
         System.out.println("To make grading easier, the passwords are\n\tmanager: managerpwd" +
-                "\n\tdb admin: dbpwd\n\tcustomer: none, just hit enter\n\tmarketing: marketingpwd.\nPasswords are " +
+                "\n\tdb admin: dbpwd\n\tcustomer: none\n\tmarketing: marketingpwd.\nPasswords are " +
                 "case-sensitive, but all of the other commands should not be, since they are converted to lower case.");
         System.out.print("Enter your usertype (Ex: Manager, Database Administrator, Customer, Marketing): ");
         Scanner scanner = new Scanner(System.in);
@@ -149,7 +149,7 @@ public class Main {
         while(true){
             Scanner scanner = new Scanner(System.in);
             System.out.print(userType.getCommands());
-            System.out.print(": ");
+            System.out.print("=> ");
             String command = scanner.nextLine();
 
             if (command.equals("QUIT")){

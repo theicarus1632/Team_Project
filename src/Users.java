@@ -97,7 +97,7 @@ public class Users {
         }
     }
 
-    public boolean parseString(String[] split, ArrayList<String> whereClauses){
+    private boolean parseString(String[] split, ArrayList<String> whereClauses){
         switch(split[0].toLowerCase()){
             case "property":
                 if (!split[1].toLowerCase().equals("id") || split.length != 3){
@@ -135,14 +135,14 @@ public class Users {
                 return true;
             case "bedrooms":
                 if (split.length != 3){
-                    System.out.println("Not enough information. Include 'Bedrooms <bedroom number>'. Please try again.");
+                    System.out.println("Not enough information. Include 'Bedrooms (=, >=, or <=) <bedroom number>'. Please try again.");
                     return false;
                 }
                 whereClauses.add("BEDCOUNT " + split[1] +" \'"+ split[2] +"\'");
                 return true;
             case "bathrooms":
                 if (split.length != 3){
-                    System.out.println("Not enough information. Include 'Bathrooms <bathroom number>'. Please try again.");
+                    System.out.println("Not enough information. Include 'Bathrooms (=, >=, or <=) <bathroom number>'. Please try again.");
                     return false;
                 }
                 whereClauses.add("BATHCOUNT " + split[1] +" \'"+ split[2] +"\'");
@@ -151,7 +151,7 @@ public class Users {
                 return false;
         }
     }
-    public void customerCommands(Connection conn, String[] split){
+    private void customerCommands(Connection conn, String[] split){
         ArrayList<String> columns = new ArrayList<String>();
         ArrayList<String> whereClauses = new ArrayList<String>();
         for (int i = 0; i < split.length; i++) {
@@ -180,7 +180,7 @@ public class Users {
             e.printStackTrace();
         }
     }
-    public void marketingCommands(Connection conn, String[] split){
+    private void marketingCommands(Connection conn, String[] split){
         ArrayList<String> columns = new ArrayList<String>();
         ArrayList<String> whereClauses = new ArrayList<String>();
         Scanner scanner = new Scanner(System.in);
@@ -219,7 +219,7 @@ public class Users {
         }*/
     }
 
-    public void managerCommands(Connection conn, String[] split){
+    private void managerCommands(Connection conn, String[] split){
         ArrayList<String> columns = new ArrayList<String>();
         ArrayList<String> whereClauses = new ArrayList<String>();
         ArrayList<String> orderBy = new ArrayList<String>();

@@ -111,7 +111,6 @@ public class Main {
         }
         System.out.println("Welcome, " + usertype + ". Enter QUIT at any time to exit the program. Here are the " +
                 "available commands:");
-        System.out.println(user.getCommands());
         return user;
 
     }
@@ -161,6 +160,7 @@ public class Main {
     public void inputLoop(Users userType){
         while(true){
             Scanner scanner = new Scanner(System.in);
+            System.out.print(userType.getCommands());
             System.out.print(": ");
             String command = scanner.nextLine();
 

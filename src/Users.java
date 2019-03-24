@@ -99,30 +99,29 @@ public class Users {
             return;
         }
         if(split[0].toLowerCase().equals("average")){
-            System.out.println("Property attributes that can be averaged are:\n\tSale Price, Square Footage, Bedrooms," +
+            System.out.println("Property attributes that can be averaged are:\n\tSale Price, Square Footage, Bedrooms, " +
                     "and Bathrooms:\nEnter one of the above attributes to average for all properties.");
             String attr = scanner.nextLine();
             split = attr.split(" ");
 
-            if(split.length != 1){
+            if(split.length == 0 || split.length > 2){
                 System.out.println("Invalid command!");
                 return;
             }
-            if (split[0].toLowerCase().equals("bedrooms")){
-                columns.add("avg(BEDCOUNT)");
-                ResultSet result = LandWithHouseTable.queryLandWithHouseTable(conn, columns, whereClauses);
-                try {
-                    while (result.next()) {
-                        System.out.printf("Average Bedrooms (rounded to the nearest integer): %d\n",
-                                result.getInt(1));
-                    }
-                }catch (SQLException e){
-                    e.printStackTrace();
-                }
-            }
-            else {
+            getAverage(conn, columns, whereClauses, split);
+        }
+        if(split[0].toLowerCase().equals("current")){
+            System.out.println("\tFind listings for\nHomes for Sale, Homes sold Within Month, For Sale by Owner");
+            System.out.println("Enter 'Sale' for current homes, 'Recent' for recently sold homes, and 'Owner <id>' for " +
+                    "info about a specific owner.");
+            String attr = scanner.nextLine();
+            split = attr.split(" ");
+
+            if(split.length == 0 || split.length > 2){
                 System.out.println("Invalid command!");
+                return;
             }
+            getCurrent(conn, columns, whereClauses, split);
         }
         else {
             System.out.println("Invalid command!");
@@ -187,6 +186,83 @@ public class Users {
         }
         else {
             System.out.println("Invalid command!");
+        }
+    }
+
+    private void getAverage(Connection conn, ArrayList<String> columns, ArrayList<String> whereClauses, String[] avgOf){
+        String toPrint = avgOf[0];
+        String attr;
+        switch (avgOf[0].toLowerCase()){
+            case "bathrooms":
+                attr = "BATHCOUNT";
+                break;
+            case "bedrooms":
+                attr = "BEDCOUNT";
+                break;
+            case "square":
+                if(!avgOf[1].toLowerCase().equals("footage")){
+                    System.out.println("Invalid command!");
+                    return;
+                }
+                toPrint += " " + avgOf[1];
+                attr = "HSIZE";
+                break;
+            case "sale":
+                if(!avgOf[1].toLowerCase().equals("price")){
+                    System.out.println("Invalid command!");
+                    return;
+                }
+                toPrint += " " + avgOf[1];
+                attr = "PRICE";
+                break;
+            default:
+                System.out.println("Invalid command!");
+                return;
+        }
+        columns.add("avg(" + attr + ")");
+        ResultSet result = LandWithHouseTable.queryLandWithHouseTable(conn, columns, whereClauses);
+        try {
+            while (result.next()) {
+                System.out.printf("Average " + toPrint + " (rounded to the nearest integer): %d\n",
+                        result.getInt(1));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    private void getCurrent(Connection conn, ArrayList<String> columns, ArrayList<String> whereClauses, String[] curr){
+        String toPrint = curr[0];
+        String attr;
+        switch (curr[0].toLowerCase()){
+            case "sale":
+                attr = "ISFORSALE";
+                break;
+            case "recent":
+                attr = "SALEDATE";
+                break;
+            case "owner":
+                if(curr.length != 2){
+                    System.out.println("Invalid command!");
+                    return;
+                }
+                toPrint += " " + curr[1];
+                attr = "id";
+                break;
+            default:
+                System.out.println("Invalid command!");
+                return;
+        }
+        //TODO:
+        columns.add("avg(" + attr + ")");
+        ResultSet result = LandWithHouseTable.queryLandWithHouseTable(conn, columns, whereClauses);
+        try {
+            while (result.next()) {
+                System.out.printf("Average " + toPrint + " (rounded to the nearest integer): %d\n",
+                        result.getInt(1));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
         }
     }
 }

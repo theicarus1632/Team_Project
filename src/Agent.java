@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 
+//a class to represent the agent and their information within the database
 public class Agent extends People {
     private int salary;
     private int commissions;
@@ -9,6 +10,7 @@ public class Agent extends People {
     private int managerID;
     private int officeID;
 
+    //the Agent constructor 
     public Agent(int id,
                   String name,
                   String address,
@@ -25,6 +27,7 @@ public class Agent extends People {
         this.officeID = officeID;
     }
 
+    //this function returns an agent based on the string given
     public Agent(String[] data){
         this(Integer.parseInt(data[0]), data[1], data[3]+data[4],
                 data[5], data[6], Integer.parseInt(data[2]),Integer.parseInt(data[7]), Integer.parseInt(data[8]),

@@ -47,6 +47,7 @@ public class Main {
             e.printStackTrace();
         }
     }
+
     public void dropTable(Connection conn, String tableName) {
         String query = "DROP TABLE IF EXISTS " + tableName;
         try {
@@ -79,11 +80,11 @@ public class Main {
 
     }
 
-    /**
-     * This is hideous but i haven't slept in 2 days so cut me a break, please.
-     */
-    public Users userInput(){
 
+    private Users userInput(){
+        System.out.println("To make grading easier, the passwords are\n\tmanager: managerpwd" +
+                "\n\tdb admin: dbpwd\n\tcustomer: none, just hit enter\n\tmarketing: marketingpwd.\nPasswords are " +
+                "case-sensitive, but all of the other commands should not be, since they are converted to lower case.");
         System.out.print("Enter your usertype (Ex: Manager, Database Administrator, Customer, Marketing): ");
         Scanner scanner = new Scanner(System.in);
         String usertype = scanner.nextLine();
@@ -128,26 +129,19 @@ public class Main {
             AgentTable.populateAgentTableFromCSV(conn, "agents.csv");
 
             LandWithHouseTable.createLandWithHouseTable(conn);
-            LandWithHouseTable.populateLandWithHouseTableFromCSV(conn,"lwh.csv", "Properties.csv");
+            LandWithHouseTable.populateLandWithHouseTableFromCSV(conn,"landWithHouse.csv", "Properties.csv");
 
             LandWithoutHouseTable.createLandWithoutHouseTable(conn);
-            LandWithoutHouseTable.populateLandWithoutHouseTableFromCSV(conn,"lwohouse.csv", "properties.csv");
+            LandWithoutHouseTable.populateLandWithoutHouseTableFromCSV(conn,"landWithoutHouse.csv", "properties.csv");
 
             SalesTable.createSaleTable(conn);
             SalesTable.populateSalesTableFromCSV(conn,"sales.csv");
-
-
-/*            ClientTable.printClientTable(conn);
-            OfficeTable.printOfficeTable(conn);
-            AgentTable.printAgentTable(conn);
-            LandWithHouseTable.printLandWithHouseTable(conn);
-            LandWithoutHouseTable.printLandWithoutHouseTable(conn);
-            SalesTable.printSalesTable(conn);*/
 
         } catch (SQLException e){
             e.printStackTrace();
         }
     }
+
     private void inputLoop(Users userType){
         while(true){
             Scanner scanner = new Scanner(System.in);
@@ -164,10 +158,7 @@ public class Main {
         }
     }
 
-    /**
-     * hideous but i haven't slept in 2 days, please cut me a break :(
-     * @param args
-     */
+
     public static void main(String[] args) {
         Main test = new Main();
         String location = "./h2demo/h2demo";

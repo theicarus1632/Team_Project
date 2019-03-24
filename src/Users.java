@@ -27,7 +27,7 @@ public class Users {
                         "\n\tView performance by Office ID - Enter 'Office' <id>:\n\tView ascending or descending" +
                         " performance for all offices - Enter 'All offices (<ascending> or <descending>)':\n\t" +
                         "View agents with a commission above, equal to, or below a number - Enter 'Commission " +
-                        "(=, <=, or >=) <number>\n";
+                        "(=, <=, or >=) <number> (optional: <ascending> or <descending>):\n";
                 break;
             case "customer":
                 this.password = "";
@@ -66,6 +66,10 @@ public class Users {
     public String getCommands() {
         return commands;
     }
+
+    /**
+     * The submethods are hideous but i haven't slept in 2 days so cut me a break, please.
+     */
     public void executeCommands(Connection conn, String command){
         String[] split = command.split(" ");
         String[] splitCommas = command.split(", ");
@@ -218,16 +222,16 @@ public class Users {
     public void managerCommands(Connection conn, String[] split){
         ArrayList<String> columns = new ArrayList<String>();
         ArrayList<String> whereClauses = new ArrayList<String>();
+        ArrayList<String> orderBy = new ArrayList<String>();
 
-        if (split.length != 2 && split.length != 3){
+        if (split.length < 2 || split.length > 4){
             System.out.println("Invalid command!");
             return;
         }
         if (split[0].toLowerCase().equals("agent")){
             System.out.println("Performance for Agent " + split[1] + ":");
-            columns.add("id, NAME, PHONE, EMAIL, ADDRESS, SALARY, COMMISSIONS, MANAGERID, OFFICEID");
             whereClauses.add("id = \'"+ split[1] +"\'");
-            ResultSet result = AgentTable.queryAgentTable(conn, columns, whereClauses);
+            ResultSet result = AgentTable.queryAgentTable(conn, columns, whereClauses, orderBy);
             try {
                 while (result.next()) {
                     AgentTable.printAgent(
@@ -245,9 +249,8 @@ public class Users {
             }
         }
         if (split[0].toLowerCase().equals("office")){
-            columns.add("id, LOCATION, ADDRESS, MANAGERID");
             whereClauses.add("id = \'"+ split[1] +"\'");
-            ResultSet result = OfficeTable.queryOfficeTable(conn, columns, whereClauses);
+            ResultSet result = OfficeTable.queryOfficeTable(conn, columns, whereClauses, orderBy);
             try {
                 while(result.next()){
                     OfficeTable.printOffice(
@@ -261,19 +264,80 @@ public class Users {
                 e.printStackTrace();
             }
         }
-        if (split[0].toLowerCase().equals("all")){
+        if (split[0].toLowerCase().equals("all") && split.length == 3){
+            if(split[2].toLowerCase().equals("ascending")){
+                orderBy.add("ID asc");
+            }
+            if(split[2].toLowerCase().equals("descending")){
+                orderBy.add("ID desc");
+            }
             if (split[1].toLowerCase().equals("offices"))
             {
-                OfficeTable.printOfficeTable(conn);
+                ResultSet result = OfficeTable.queryOfficeTable(conn, columns, whereClauses, orderBy);
+                try {
+                    while(result.next()){
+                        OfficeTable.printOffice(
+                                result.getInt(1),
+                                result.getString(2),
+                                result.getString(3),
+                                result.getInt(4));
+                    }
+                }
+                catch (SQLException e){
+                    e.printStackTrace();
+                }
             }
             if (split[1].toLowerCase().equals("agents"))
             {
-                AgentTable.printAgentTable(conn);
+                ResultSet result = AgentTable.queryAgentTable(conn, columns, whereClauses, orderBy);
+                try {
+                    while(result.next()){
+                        AgentTable.printAgent(
+                                result.getInt(1),
+                                result.getString(2),
+                                result.getString(3),
+                                result.getString(4),
+                                result.getString(5),
+                                result.getInt(6),
+                                result.getInt(7),
+                                result.getInt(8),
+                                result.getInt(9));
+                    }
+                }
+                catch (SQLException e){
+                    e.printStackTrace();
+                }
             }
         }
-/*        else {
-            System.out.println("Invalid command!");
-        }*/
+        if(split[0].toLowerCase().equals("commission") && split.length >= 3) {
+            whereClauses.add("COMMISSIONS " + split[1] +" \'"+ split[2] +"\'");
+            if (split.length == 4) {
+                if (split[3].toLowerCase().equals("ascending")) {
+                    orderBy.add("COMMISSIONS asc");
+                }
+                if (split[3].toLowerCase().equals("descending")) {
+                    orderBy.add("COMMISSIONS desc");
+                }
+            }
+            ResultSet result = AgentTable.queryAgentTable(conn, columns, whereClauses, orderBy);
+            try {
+                while(result.next()){
+                    AgentTable.printAgent(
+                            result.getInt(1),
+                            result.getString(2),
+                            result.getString(3),
+                            result.getString(4),
+                            result.getString(5),
+                            result.getInt(6),
+                            result.getInt(7),
+                            result.getInt(8),
+                            result.getInt(9));
+                }
+            }
+            catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
     }
 
     private void getAverage(Connection conn, ArrayList<String> columns, ArrayList<String> whereClauses, String[] avgOf){
@@ -354,7 +418,6 @@ public class Users {
                 System.out.println("Invalid command!");
                 return;
         }
-        //TODO:
         ResultSet result = LandWithHouseTable.queryLandWithHouseTable(conn, columns, whereClauses);
         try {
             while (result.next()) {
@@ -370,7 +433,7 @@ public class Users {
                             result.getInt(10));
 
             }
-        }catch (SQLException e){
+        } catch (SQLException e){
             e.printStackTrace();
         }
     }

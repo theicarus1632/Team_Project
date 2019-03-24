@@ -1,25 +1,100 @@
-2001,130675,5227,TRUE,N/A,"2055 Niagara Falls Blvd, Amherst NY 14228",Agricultural
-2002,99975,3999,FALSE,01/02/19,"101 Sanford Farm Shpg Center, Amsterdam NY 12010",Business
-2003,141575,5663,TRUE,N/A,"297 Grant Avenue, Auburn NY 13021",Agricultural
-2004,27250,1090,TRUE,N/A,"4133 Veterans Memorial Drive, Batavia NY 14020",Agricultural
-2005,44950,1798,FALSE,01/05/19,"6265 Brockport Spencerport Rd, Brockport NY 14420",Business
-2006,45200,1808,TRUE,N/A,"5399 W Genesse St, Camillus NY 13031",Agricultural
-2007,83625,3345,FALSE,01/07/19,"3191 County rd 10, Canandaigua NY 14424",Business
-2008,212475,8499,TRUE,N/A,"30 Catskill, Catskill NY 12414",Business
-2009,133525,5341,TRUE,N/A,"161 Centereach Mall, Centereach NY 11720",Agricultural
-2010,84450,3378,TRUE,N/A,"3018 East Ave, Central Square NY 13036",Agricultural
-2011,138750,5550,FALSE,01/11/19,"100 Thruway Plaza, Cheektowaga NY 14225",Agricultural
-2012,83175,3327,TRUE,N/A,"8064 Brewerton Rd, Cicero NY 13039",Business
-2013,106275,4251,FALSE,01/13/19,"5033 Transit Road, Clarence NY 14031",Agricultural
-2014,56450,2258,TRUE,N/A,"3949 Route 31, Clay NY 13041",Agricultural
-2015,191000,7640,TRUE,N/A,"5710 Mcfarland Blvd, Northport AL 35476",Business
-2016,59350,2374,FALSE,01/16/19,"2453 2Nd Avenue East, Oneonta AL 35121 ",Business
-2017,97500,3900,TRUE,N/A,"2900 Pepperrell Pkwy, Opelika AL 36801",Business
-2018,36500,1460,FALSE,01/18/19,"92 Plaza Lane, Oxford AL 36203",Agricultural
-2019,110200,4408,TRUE,N/A,"1537 Hwy 231 South, Ozark AL 36360",Business
-2020,66700,2668,TRUE,N/A,"2181 Pelham Pkwy, Pelham AL 35124",Business
-2021,82550,3302,TRUE,N/A,"165 Vaughan Ln, Pell City AL 35125",Business
-2022,228700,9148,FALSE,01/22/19,"3700 Hwy 280-431 N, Phenix City AL 36867",Agricultural
-2023,51650,2066,TRUE,N/A,"1903 Cobbs Ford Rd, Prattville AL 36066",Agricultural
-2024,40250,1610,TRUE,N/A,"4180 Us Hwy 431, Roanoke AL 36274",Business
-2025,33025,1321,FALSE,01/25/19,"13675 Hwy 43, Russellville AL 35653",Business
+1,BrownField
+2,Greenbelt
+3,Greenbelt
+4,Agricultural
+5,Greenbelt
+6,Agricultural
+7,BrownField
+8,Greenbelt
+9,Agricultural
+10,Agricultural
+11,Agricultural
+12,Greenbelt
+13,Industrial
+14,Agricultural
+15,Greenbelt
+16,BrownField
+17,BrownField
+18,Contaminated
+19,BrownField
+20,Contaminated
+21,BrownField
+22,Contaminated
+23,Agricultural
+24,Agricultural
+25,Contaminated
+26,Agricultural
+27,Industrial
+28,Contaminated
+29,Industrial
+30,Industrial
+31,Industrial
+32,Contaminated
+33,Contaminated
+34,Contaminated
+35,Contaminated
+36,Agricultural
+37,BrownField
+38,Agricultural
+39,Contaminated
+40,Industrial
+41,Contaminated
+42,Agricultural
+43,Contaminated
+44,Contaminated
+45,Agricultural
+46,Agricultural
+47,BrownField
+48,Agricultural
+49,BrownField
+50,Contaminated
+51,Agricultural
+52,Industrial
+53,Industrial
+54,BrownField
+55,Industrial
+56,BrownField
+57,Contaminated
+58,Greenbelt
+59,Industrial
+60,Industrial
+61,Greenbelt
+62,Industrial
+63,BrownField
+64,BrownField
+65,Greenbelt
+66,BrownField
+67,Greenbelt
+68,Greenbelt
+69,Agricultural
+70,BrownField
+71,Industrial
+72,Industrial
+73,Greenbelt
+74,BrownField
+75,Industrial
+76,BrownField
+77,Agricultural
+78,Agricultural
+79,Agricultural
+80,Contaminated
+81,Agricultural
+82,Industrial
+83,Contaminated
+84,BrownField
+85,Contaminated
+86,Contaminated
+87,Agricultural
+88,Industrial
+89,Greenbelt
+90,Contaminated
+91,BrownField
+92,Greenbelt
+93,BrownField
+94,BrownField
+95,Industrial
+96,Agricultural
+97,Agricultural
+98,Agricultural
+99,Contaminated
+100,BrownField

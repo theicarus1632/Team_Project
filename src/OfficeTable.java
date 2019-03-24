@@ -82,7 +82,8 @@ public class OfficeTable {
     }
     public static ResultSet queryOfficeTable(Connection conn,
                                              ArrayList<String> columns,
-                                             ArrayList<String> whereClauses){
+                                             ArrayList<String> whereClauses,
+                                             ArrayList<String> orderBy){
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT ");
         if(columns.isEmpty()){
@@ -108,6 +109,17 @@ public class OfficeTable {
                 }
                 else{
                     sb.append(whereClauses.get(i));
+                }
+            }
+        }
+        if(!orderBy.isEmpty()){
+            sb.append("order by ");
+            for(int i = 0; i < orderBy.size(); i++){
+                if(i != orderBy.size() -1){
+                    sb.append(orderBy.get(i) + " AND ");
+                }
+                else{
+                    sb.append(orderBy.get(i));
                 }
             }
         }

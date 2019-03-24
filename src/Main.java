@@ -1,16 +1,8 @@
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
     private Connection conn;
-
-    private ClientTable clientTable;
-    private AgentTable agentTable;
-    private LandWithHouseTable landWithHouseTable;
-    private LandWithoutHouseTable landWithoutHouseTable;
-    private OfficeTable officeTable;
-    private SalesTable salesTable;
 
     /**
      * Create a database connection with the given params
@@ -65,9 +57,6 @@ public class Main {
         }
     }
     public void initializeUsers(Connection conn){
-        /*        String query = "create user MANAGER password 'manager'; create user DATABASE_ADMIN password 'dbadmin';" +
-                "create user CUSTOMER password ''; create user MARKETING password 'marketing';";
-      */
         String query = "create role MANAGER;"
                 + "create role DATABASE_ADMIN;"
                 + "create role CUSTOMER;"
@@ -92,14 +81,11 @@ public class Main {
 
     /**
      * This is hideous but i haven't slept in 2 days so cut me a break, please.
-     * @param conn
      */
-    public Users userInput(Connection conn){
+    public Users userInput(){
 
         System.out.print("Enter your usertype (Ex: Manager, Database Administrator, Customer, Marketing): ");
-
         Scanner scanner = new Scanner(System.in);
-
         String usertype = scanner.nextLine();
         Users user = new Users(usertype.toLowerCase());
 
@@ -121,7 +107,7 @@ public class Main {
 
     }
 
-    public void reset(Connection conn){
+    private void reset(Connection conn){
         String query = "DROP ALL OBJECTS";
         try {
             Statement stmt = conn.createStatement();
@@ -130,7 +116,7 @@ public class Main {
             e.printStackTrace();
         }
     }
-    public void initializeTables(Connection conn){
+    private void initializeTables(Connection conn){
         try {
             ClientTable.createClientTable(conn);
             ClientTable.populateClientTableFromCSV(conn, "clients.csv");
@@ -142,11 +128,10 @@ public class Main {
             AgentTable.populateAgentTableFromCSV(conn, "agents.csv");
 
             LandWithHouseTable.createLandWithHouseTable(conn);
-            LandWithHouseTable.populateLandWithHouseTableFromCSV(conn,"landWithHouse.csv");
-
+            LandWithHouseTable.populateLandWithHouseTableFromCSV(conn,"lwh.csv", "Properties.csv");
 
             LandWithoutHouseTable.createLandWithoutHouseTable(conn);
-            LandWithoutHouseTable.populateLandWithoutHouseTableFromCSV(conn,"landWithoutHouse.csv");
+            LandWithoutHouseTable.populateLandWithoutHouseTableFromCSV(conn,"lwohouse.csv", "properties.csv");
 
             SalesTable.createSaleTable(conn);
             SalesTable.populateSalesTableFromCSV(conn,"sales.csv");
@@ -163,7 +148,7 @@ public class Main {
             e.printStackTrace();
         }
     }
-    public void inputLoop(Users userType){
+    private void inputLoop(Users userType){
         while(true){
             Scanner scanner = new Scanner(System.in);
             System.out.print(userType.getCommands());
@@ -192,18 +177,17 @@ public class Main {
         test.createConnection(location, user, password);
         Connection conn = test.getConnection();
         test.reset(conn);
+
         test.initializeTables(conn);
         test.initializeUsers(conn);
 
-
-
-        Users userType = test.userInput(conn);
+        Users userType = test.userInput();
 
         if(userType == null){
             return;
         }
-
         test.inputLoop(userType);
+
         test.reset(conn);
         test.closeConnection();
     }

@@ -3,6 +3,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Scanner;
 
 public class Users {
@@ -21,16 +22,21 @@ public class Users {
             case "manager":
                 this.password = "managerpwd";
                 this.role = "manager";
-                this.commands = "\tView performance by Agent ID - Enter 'Agent' <id>:\n\tView performance for " +
-                        "all agents - Enter 'All Agents':\n\tView performance by Office ID - Enter 'Office' <id>:\n\tView " +
-                        "performance for all offices - Enter 'All offices':\n";
+                this.commands = "\tView performance by Agent ID - Enter 'Agent' <id>:\n\tView ascending or " +
+                        "descending performance for all agents - Enter 'All Agents (<ascending> or <descending>)':" +
+                        "\n\tView performance by Office ID - Enter 'Office' <id>:\n\tView ascending or descending" +
+                        " performance for all offices - Enter 'All offices (<ascending> or <descending>)':\n\t" +
+                        "View agents with a commission above, equal to, or below a number - Enter 'Commission " +
+                        "(=, <=, or >=) <number>\n";
                 break;
             case "customer":
                 this.password = "";
                 this.role = "customer";
-                this.commands = "\tFind properties by attributes:\nProperty attributes are:\n\t Property ID, Owner, " +
-                        "Sale Price, Address, Square Footage, Bedrooms, Bathrooms, and Sale Status.\nSpecify the attribute " +
-                        "and attribute value: (Ex: Bedrooms 3 Bathrooms 2)\n";
+                this.commands = "\tFind properties by attributes:\nProperty attributes are:\n\t Property ID <id>, " +
+                        "Owner <id>, Sale Price (=, <=, or >=) <price>, Square Footage (=, <=, or >=) <footage>, " +
+                        "Bedrooms (=, <=, or >=) <bedroom number>, Bathrooms (=, <=, or >=) <bathroom number>, and " +
+                        "Sale Status <true or false>.\nSpecify the attribute and attribute value, separated by a comma: " +
+                        "(Ex: Bedrooms 3, Bathrooms 2)\n";
                 break;
             case "database administrator":
                 this.password = "dbpwd";
@@ -62,7 +68,7 @@ public class Users {
     }
     public void executeCommands(Connection conn, String command){
         String[] split = command.split(" ");
-
+        String[] splitCommas = command.split(", ");
         switch (role){
             case "marketing":
                 marketingCommands(conn, split);
@@ -76,7 +82,7 @@ public class Users {
                 }
                 break;
             case "customer":
-                customerCommands(conn, split);
+                customerCommands(conn, splitCommas);
                 break;
             case "manager":
                 managerCommands(conn, split);
@@ -86,8 +92,89 @@ public class Users {
                 break;
         }
     }
-    public void customerCommands(Connection conn, String[] split){
 
+    public boolean parseString(String[] split, ArrayList<String> whereClauses){
+        switch(split[0].toLowerCase()){
+            case "property":
+                if (!split[1].toLowerCase().equals("id") || split.length != 3){
+                    System.out.println("Not enough information. Include 'Property ID <id>'. Please try again.");
+                    return false;
+                }
+                whereClauses.add("ID = \'"+ split[2] +"\'");
+                return true;
+            case "owner":
+                if (split.length != 2){
+                    System.out.println("Not enough information. Include 'Owner <id>'. Please try again.");
+                    return false;
+                }
+                whereClauses.add("OWNERID = \'"+ split[1] +"\'");
+                return true;
+            case "sale":
+                if (split[1].toLowerCase().equals("price") && split.length == 4){
+                    whereClauses.add("PRICE " + split[2] +" \'"+ split[3] +"\'");
+
+                }
+                else if (split[1].toLowerCase().equals("status") && split.length == 3){
+                    whereClauses.add("ISFORSALE = \'"+ split[2] +"\'");
+                }
+                else{
+                    System.out.println("Not enough information. Please try again.");
+                    return false;
+                }
+                return true;
+            case "square":
+                if (!split[1].toLowerCase().equals("footage") || split.length != 4){
+                    System.out.println("Not enough information. Include 'Square Footage (=, >=, or <=) <footage>'. Please try again.");
+                    return false;
+                }
+                whereClauses.add("HSIZE " + split[2] +" \'"+ split[3] +"\'");
+                return true;
+            case "bedrooms":
+                if (split.length != 3){
+                    System.out.println("Not enough information. Include 'Bedrooms <bedroom number>'. Please try again.");
+                    return false;
+                }
+                whereClauses.add("BEDCOUNT " + split[1] +" \'"+ split[2] +"\'");
+                return true;
+            case "bathrooms":
+                if (split.length != 3){
+                    System.out.println("Not enough information. Include 'Bathrooms <bathroom number>'. Please try again.");
+                    return false;
+                }
+                whereClauses.add("BATHCOUNT " + split[1] +" \'"+ split[2] +"\'");
+                return true;
+            default:
+                return false;
+        }
+    }
+    public void customerCommands(Connection conn, String[] split){
+        ArrayList<String> columns = new ArrayList<String>();
+        ArrayList<String> whereClauses = new ArrayList<String>();
+        for (int i = 0; i < split.length; i++) {
+            String[] splitAgain = split[i].split(" ");
+            boolean valid = parseString(splitAgain, whereClauses);
+            if(!valid){
+                return;
+            }
+        }
+        ResultSet result = LandWithHouseTable.queryLandWithHouseTable(conn, columns, whereClauses);
+        try {
+            while (result.next()) {
+                LandWithHouseTable.printLandWithHouse(result.getInt(1),
+                        result.getBoolean(2),
+                        result.getInt(3),
+                        result.getString(4),
+                        result.getString(5),
+                        result.getInt(6),
+                        result.getInt(7),
+                        result.getInt(8),
+                        result.getInt(9),
+                        result.getInt(10));
+
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
     }
     public void marketingCommands(Connection conn, String[] split){
         ArrayList<String> columns = new ArrayList<String>();
@@ -123,14 +210,16 @@ public class Users {
             }
             getCurrent(conn, columns, whereClauses, split);
         }
-
+/*        else {
+            System.out.println("Invalid command!");
+        }*/
     }
 
     public void managerCommands(Connection conn, String[] split){
         ArrayList<String> columns = new ArrayList<String>();
         ArrayList<String> whereClauses = new ArrayList<String>();
 
-        if (split.length != 2){
+        if (split.length != 2 && split.length != 3){
             System.out.println("Invalid command!");
             return;
         }
@@ -182,6 +271,9 @@ public class Users {
                 AgentTable.printAgentTable(conn);
             }
         }
+/*        else {
+            System.out.println("Invalid command!");
+        }*/
     }
 
     private void getAverage(Connection conn, ArrayList<String> columns, ArrayList<String> whereClauses, String[] avgOf){
@@ -227,34 +319,56 @@ public class Users {
     }
 
     private void getCurrent(Connection conn, ArrayList<String> columns, ArrayList<String> whereClauses, String[] curr){
-        String toPrint = curr[0];
-        String attr;
         switch (curr[0].toLowerCase()){
             case "sale":
-                attr = "ISFORSALE";
+                whereClauses.add("ISFORSALE = 'TRUE'");
                 break;
             case "recent":
-                attr = "SALEDATE";
+                String dateString = "";
+                int month = Calendar.getInstance().get(Calendar.MONTH);
+                int year = Calendar.getInstance().get(Calendar.YEAR);
+                int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+
+                if (month < 10){
+                    dateString += "0";
+                }
+                dateString += String.valueOf(month);
+                dateString += "/";
+                if (day < 10){
+                    dateString += "0";
+                }
+                dateString += day;
+                dateString += "/";
+                dateString += year%100;
+                whereClauses.add("SALEDATE != 'null' AND SALEDATE LIKE '______"+ dateString.charAt(6) +
+                        dateString.charAt(7) +"' AND SALEDATE >= \'"+ dateString +"\'");
                 break;
             case "owner":
                 if(curr.length != 2){
                     System.out.println("Invalid command!");
                     return;
                 }
-                toPrint += " " + curr[1];
-                attr = "id";
+                whereClauses.add("OWNERID = \'"+ curr[1] +"\'");
                 break;
             default:
                 System.out.println("Invalid command!");
                 return;
         }
         //TODO:
-        columns.add("avg(" + attr + ")");
         ResultSet result = LandWithHouseTable.queryLandWithHouseTable(conn, columns, whereClauses);
         try {
             while (result.next()) {
-                System.out.printf("Average " + toPrint + " (rounded to the nearest integer): %d\n",
-                        result.getInt(1));
+                    LandWithHouseTable.printLandWithHouse(result.getInt(1),
+                            result.getBoolean(2),
+                            result.getInt(3),
+                            result.getString(4),
+                            result.getString(5),
+                            result.getInt(6),
+                            result.getInt(7),
+                            result.getInt(8),
+                            result.getInt(9),
+                            result.getInt(10));
+
             }
         }catch (SQLException e){
             e.printStackTrace();

@@ -1,11 +1,10 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 public class LandWithHouseTable {
     /**
@@ -14,26 +13,41 @@ public class LandWithHouseTable {
      * Does not create the table. It must already be created
      *
      * @param conn: database connection to work with
-     * @param fileName
      * @throws SQLException
      */
     public static void populateLandWithHouseTableFromCSV(Connection conn,
-                                                 String fileName)
+                                                 String f1, String f2)
             throws SQLException{
         /**
          * Structure to store the data as you read it in
          * Will be used later to populate the table
          */
         ArrayList<LandWithHouse> landWithHouses = new ArrayList<LandWithHouse>();
+
         try {
-            BufferedReader br = new BufferedReader(new FileReader(fileName));
-            String line;
-            while((line = br.readLine()) != null){
-                String[] split = line.split(",");
+            BufferedReader br1=new BufferedReader(new InputStreamReader(new FileInputStream(f1)));
+            BufferedReader br2=new BufferedReader(new InputStreamReader(new FileInputStream(f2)));
+            String line1,line2;
+
+            while ((line1 = br1.readLine()) != null && (line2 = br2.readLine()) != null) {
+                if(line1.charAt(0) == ','){
+                    break;
+                }
+                String split1[] = line1.split(",");
+                String split2[] = line2.split(",");
+                String realLine = "";
+                realLine += split1[0];
+                for (int i = 1; i < split2.length; i++) {
+                    realLine += "," + split2[i];
+                }
+                for (int i = 1; i < split1.length; i++) {
+                    realLine += ","  + split1[i];
+                }
+                String[] split = realLine.split(",");
                 landWithHouses.add(new LandWithHouse(split));
+                //write this line to the output file
             }
-            br.close();
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
 
@@ -69,6 +83,8 @@ public class LandWithHouseTable {
                     + "BEDCOUNT INT,"
                     + "BATHCOUNT INT,"
                     + "HSIZE INT,"
+                    + "OWNERID INT,"
+                    + "FOREIGN KEY (OWNERID) REFERENCES client,"
                     + ");" ;
             /**
              * Create a query and execute
@@ -95,14 +111,15 @@ public class LandWithHouseTable {
                                         int l_size,
                                         int bedCount,
                                         int bathCount,
-                                        int h_size){
+                                        int h_size,
+                                        int ownerID){
 
         /**
          * SQL insert statement
          */
         String query = String.format("INSERT INTO landWithHouse " +
-                        "VALUES(%d,\'%b\',\'%d\',\'%s\',\'%s\',\'%d\',\'%d\',\'%d\',\'%d\');",
-                id, isForSale, price, saleDate, location, l_size, bedCount, bathCount, h_size);
+                        "VALUES(%d,\'%b\',\'%d\',\'%s\',\'%s\',\'%d\',\'%d\',\'%d\',\'%d\',\'%d\');",
+                id, isForSale, price, saleDate, location, l_size, bedCount, bathCount, h_size, ownerID);
         try {
             /**
              * create and execute the query
@@ -131,14 +148,14 @@ public class LandWithHouseTable {
          * to the columns to add it to
          */
         sb.append("INSERT INTO landWithHouse (id, ISFORSALE, PRICE, SALEDATE," +
-                " LOCATION, LSIZE, BEDCOUNT, BATHCOUNT, HSIZE) VALUES");
+                " LOCATION, LSIZE, BEDCOUNT, BATHCOUNT, HSIZE, OWNERID) VALUES");
 
 
         for(int i = 0; i < landWithHouses.size(); i++){
             LandWithHouse lwh = landWithHouses.get(i);
-            sb.append(String.format("(%d,\'%b\',\'%d\',\'%s\',\'%s\',\'%d\',\'%d\',\'%d\',\'%d\')",
+            sb.append(String.format("(%d,\'%b\',\'%d\',\'%s\',\'%s\',\'%d\',\'%d\',\'%d\',\'%d\',\'%d\')",
                     lwh.getId(), lwh.isForSale(), lwh.getPrice(), lwh.getSaleDate(), lwh.getLocation(), lwh.getL_size(),
-                    lwh.getBedCount(), lwh.getBathCount(), lwh.getH_size()));
+                    lwh.getBedCount(), lwh.getBathCount(), lwh.getH_size(), lwh.getOwnerID()));
             if( i != landWithHouses.size()-1){
                 sb.append(",");
             }
@@ -239,7 +256,7 @@ public class LandWithHouseTable {
             ResultSet result = stmt.executeQuery(query);
 
             while(result.next()){
-                System.out.printf("landWithHouse %d: %b %d %s %s %d %d %d %d\n",
+                printLandWithHouse(
                         result.getInt(1),
                         result.getBoolean(2),
                         result.getInt(3),
@@ -248,11 +265,20 @@ public class LandWithHouseTable {
                         result.getInt(6),
                         result.getInt(7),
                         result.getInt(8),
-                        result.getInt(9));
+                        result.getInt(9),
+                        result.getInt(10));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+    }
+    public static void printLandWithHouse(int id, boolean isforsale, int price, String saledate, String location,
+                                          int lsize, int bedcount, int bathcount, int hsize, int ownerID){
+        System.out.printf("landWithHouse %d:\n\tIsForSale: %b\n\tPrice: %d\n\tSale Date: %s\n\tLocation: %s\n\t" +
+                        "Land Footage: %d\n\tNumber of Beds: %d\n\tNumber of Bathrooms: %d\n\tHouse Footage: %d\n\t" +
+                        "OwnerID: %d\n",
+                id, isforsale, price, saledate, location, lsize, bedcount, bathcount, hsize, ownerID);
 
     }
 }

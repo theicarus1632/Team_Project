@@ -15,16 +15,17 @@ public class LandWithHouse extends Property {
                          String location,
                          int bedCount,
                          int bathCount,
-                         int h_size){
-        super(id, price, l_size, isForSale, saleDate, location);
+                         int h_size,
+                         int ownerID){
+        super(id, price, l_size, isForSale, saleDate, location, ownerID);
         this.bedCount = bedCount;
         this.bathCount = bathCount;
         this.h_size = h_size;
     }
     public LandWithHouse(String[] data){
-        this(Integer.parseInt(data[0]), Integer.parseInt(data[2]),Integer.parseInt(data[6]),
-                Boolean.parseBoolean(data[1]), data[3], data[4]+data[5], Integer.parseInt(data[7]),
-                Integer.parseInt(data[8]), Integer.parseInt(data[9]));
+        this(Integer.parseInt(data[0]), Integer.parseInt(data[4]),Integer.parseInt(data[6]),
+                Boolean.parseBoolean(data[1]), data[5], data[2]+data[3], Integer.parseInt(data[8]),
+                Integer.parseInt(data[9]), Integer.parseInt(data[10]), Integer.parseInt(data[7]));
     }
 
     public int getBedCount(){

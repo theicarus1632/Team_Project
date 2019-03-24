@@ -7,9 +7,10 @@ public abstract class Property {
     private int id;
     private int price;
     private int l_size;
+    private int ownerID;
 
     private boolean isForSale;
-    private Date saleDate;
+    private String saleDate;
     private String location;
 
     public Property(int id,
@@ -17,23 +18,30 @@ public abstract class Property {
                     int l_size,
                     boolean isForSale,
                     String saleDate,
-                    String location){
+                    String location,
+                    int ownerID){
         this.id = id;
         this.price = price;
         this.l_size = l_size;
         this.isForSale = isForSale;
         this.location = location;
+        this.ownerID = ownerID;
         if (saleDate.equals("N/A")){
             this.saleDate = null;
         }
         else {
+            this.saleDate = saleDate;
+        }
+        /*else {
             DateFormat df = new SimpleDateFormat("MM/DD/YYYY");
             try {
                 this.saleDate = df.parse(saleDate);
+                System.out.println(saleDate);
+                System.out.println(this.saleDate);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-        }
+        }*/
     }
 
     public int getId() {
@@ -48,11 +56,15 @@ public abstract class Property {
         return l_size;
     }
 
+    public int getOwnerID() {
+        return ownerID;
+    }
+
     public boolean isForSale() {
         return isForSale;
     }
 
-    public Date getSaleDate() {
+    public String getSaleDate() {
         return saleDate;
     }
 

@@ -9,14 +9,16 @@ public class LandWithoutHouse extends Property {
                          boolean isForSale,
                          String saleDate,
                          String location,
-                         String landClass) {
-        super(id, price, l_size, isForSale, saleDate, location);
+                         String landClass,
+                         int ownerID) {
+        super(id, price, l_size, isForSale, saleDate, location, ownerID);
         this.landClass = landClass;
     }
 
     public LandWithoutHouse(String[] data){
-        this(Integer.parseInt(data[0]), Integer.parseInt(data[1]),Integer.parseInt(data[2]),
-                Boolean.parseBoolean(data[3]), data[4], data[5]+data[6], data[7]);
+        this(Integer.parseInt(data[0]), Integer.parseInt(data[4]),Integer.parseInt(data[6]),
+                Boolean.parseBoolean(data[1]), data[5], data[2]+data[3], data[8],
+                Integer.parseInt(data[7]));
     }
 
     public String getLandClass() {

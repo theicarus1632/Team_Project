@@ -1,6 +1,4 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,11 +12,11 @@ public class LandWithoutHouseTable {
      * Does not create the table. It must already be created
      *
      * @param conn: database connection to work with
-     * @param fileName
+     * @param f1
      * @throws SQLException
      */
     public static void populateLandWithoutHouseTableFromCSV(Connection conn,
-                                                         String fileName)
+                                                         String f1, String f2)
             throws SQLException{
         /**
          * Structure to store the data as you read it in
@@ -26,14 +24,29 @@ public class LandWithoutHouseTable {
          */
         ArrayList<LandWithoutHouse> landWithoutHouses = new ArrayList<LandWithoutHouse>();
         try {
-            BufferedReader br = new BufferedReader(new FileReader(fileName));
-            String line;
-            while((line = br.readLine()) != null){
-                String[] split = line.split(",");
+            BufferedReader br1=new BufferedReader(new InputStreamReader(new FileInputStream(f1)));
+            BufferedReader br2=new BufferedReader(new InputStreamReader(new FileInputStream(f2)));
+            String line1,line2;
+
+            while ((line1 = br1.readLine()) != null && (line2 = br2.readLine()) != null) {
+                if(line1.charAt(0) == ','){
+                    break;
+                }
+                String split1[] = line1.split(",");
+                String split2[] = line2.split(",");
+                String realLine = "";
+                realLine += split1[0];
+                for (int i = 1; i < split2.length; i++) {
+                    realLine += "," + split2[i];
+                }
+                for (int i = 1; i < split1.length; i++) {
+                    realLine += ","  + split1[i];
+                }
+                String[] split = realLine.split(",");
                 landWithoutHouses.add(new LandWithoutHouse(split));
+                //write this line to the output file
             }
-            br.close();
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
 
@@ -67,6 +80,8 @@ public class LandWithoutHouseTable {
                     + "LOCATION VARCHAR(255),"
                     + "LSIZE INT,"
                     + "LANDCLASS VARCHAR(255),"
+                    + "OWNERID INT,"
+                    + "FOREIGN KEY (OWNERID) REFERENCES client,"
                     + ");" ;
             /**
              * Create a query and execute
@@ -91,14 +106,15 @@ public class LandWithoutHouseTable {
                                         String saleDate,
                                         String location,
                                         int l_size,
-                                        String landClass){
+                                        String landClass,
+                                        int ownerID){
 
         /**
          * SQL insert statement
          */
         String query = String.format("INSERT INTO landWithoutHouse " +
-                        "VALUES(%d,\'%b\',\'%d\',\'%s\',\'%s\',\'%d\',\'%s\');",
-                id, isForSale, price, saleDate, location, l_size,landClass);
+                        "VALUES(%d,\'%b\',\'%d\',\'%s\',\'%s\',\'%d\',\'%s\',\'%d\');",
+                id, isForSale, price, saleDate, location, l_size,landClass, ownerID);
         try {
             /**
              * create and execute the query
@@ -127,14 +143,14 @@ public class LandWithoutHouseTable {
          * to the columns to add it to
          */
         sb.append("INSERT INTO landWithoutHouse (id, ISFORSALE, PRICE, SALEDATE," +
-                " LOCATION, LSIZE, LANDCLASS) VALUES");
+                " LOCATION, LSIZE, LANDCLASS, OWNERID) VALUES");
 
 
         for(int i = 0; i < landWithoutHouses.size(); i++){
             LandWithoutHouse lwh = landWithoutHouses.get(i);
-            sb.append(String.format("(%d,\'%b\',\'%d\',\'%s\',\'%s\',\'%d\',\'%s\')",
+            sb.append(String.format("(%d,\'%b\',\'%d\',\'%s\',\'%s\',\'%d\',\'%s\',\'%d\')",
                     lwh.getId(), lwh.isForSale(), lwh.getPrice(), lwh.getSaleDate(), lwh.getLocation(), lwh.getL_size(),
-                    lwh.getLandClass()));
+                    lwh.getLandClass(), lwh.getOwnerID()));
             if( i != landWithoutHouses.size()-1){
                 sb.append(",");
             }
@@ -235,14 +251,15 @@ public class LandWithoutHouseTable {
             ResultSet result = stmt.executeQuery(query);
 
             while(result.next()){
-                System.out.printf("landWithoutHouse %d: %b %d %s %s %d %s\n",
+                System.out.printf("landWithoutHouse %d: %b %d %s %s %d %s %d\n",
                         result.getInt(1),
                         result.getBoolean(2),
                         result.getInt(3),
                         result.getString(4),
                         result.getString(5),
                         result.getInt(6),
-                        result.getString(7));
+                        result.getString(7),
+                        result.getInt(8));
             }
         } catch (SQLException e) {
             e.printStackTrace();

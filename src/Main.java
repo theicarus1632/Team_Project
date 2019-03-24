@@ -137,6 +137,9 @@ public class Main {
             SalesTable.createSaleTable(conn);
             SalesTable.populateSalesTableFromCSV(conn,"sales.csv");
 
+            AgentToSalesTable.createAgentToSalesTable(conn);
+            AgentToSalesTable.populateAgentToSalesTableFromCSV(conn,"agenttosales.csv");
+
         } catch (SQLException e){
             e.printStackTrace();
         }

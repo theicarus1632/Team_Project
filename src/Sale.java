@@ -1,16 +1,13 @@
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 public class Sale {
+
     private int id;
-    private Date date;
     private int price;
     private int buyerID;
     private int sellerID;
     private int officeID;
+
     private String s_location;
+    private String date;
 
     public Sale(int id,
                 String date,
@@ -29,12 +26,7 @@ public class Sale {
             this.date = null;
         }
         else {
-            DateFormat df = new SimpleDateFormat("MM/DD/YYYY");
-            try {
-                this.date = df.parse(date);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+            this.date = date;
         }
     }
 
@@ -51,7 +43,7 @@ public class Sale {
         return price;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 

@@ -71,7 +71,10 @@ public class AgentTable {
                     + "MANAGERID INT,"
                     + "OFFICEID INT,"
                     + "CONSTRAINT FKMANAGER FOREIGN KEY (MANAGERID) REFERENCES agent (ID),"
-                    + "FOREIGN KEY (OFFICEID) REFERENCES office,"
+/*
+                    + "FOREIGN KEY (OFFICEID) REFERENCES office," // Removing this foreign key and putting the
+                    // foreign key on Office, according to Edward's plan.
+*/
                     + ");" ;
             /**
              * Create a query and execute

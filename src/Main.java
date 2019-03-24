@@ -122,11 +122,11 @@ public class Main {
             ClientTable.createClientTable(conn);
             ClientTable.populateClientTableFromCSV(conn, "clients.csv");
 
-            OfficeTable.createOfficeTable(conn);
-            OfficeTable.populateOfficeTableFromCSV(conn,"offices.csv");
-
             AgentTable.createAgentTable(conn);
             AgentTable.populateAgentTableFromCSV(conn, "agents.csv");
+
+            OfficeTable.createOfficeTable(conn);
+            OfficeTable.populateOfficeTableFromCSV(conn,"offices.csv");
 
             LandWithHouseTable.createLandWithHouseTable(conn);
             LandWithHouseTable.populateLandWithHouseTableFromCSV(conn,"landWithHouse.csv", "Properties.csv");

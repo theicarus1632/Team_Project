@@ -37,11 +37,8 @@ public class OfficeTable {
                     + "LOCATION VARCHAR(255),"
                     + "ADDRESS VARCHAR(255),"
                     + "MANAGERID INT,"
-/*
                     + "foreign key (MANAGERID) references agent"
-*/
                     + ");" ;
-                    //TODO: fix the circular references
             Statement stmt = conn.createStatement();
             stmt.execute(query);
         } catch (SQLException e){

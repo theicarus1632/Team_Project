@@ -123,9 +123,7 @@ public class Users {
             }
             getCurrent(conn, columns, whereClauses, split);
         }
-        else {
-            System.out.println("Invalid command!");
-        }
+
     }
 
     public void managerCommands(Connection conn, String[] split){
@@ -183,9 +181,6 @@ public class Users {
             {
                 AgentTable.printAgentTable(conn);
             }
-        }
-        else {
-            System.out.println("Invalid command!");
         }
     }
 

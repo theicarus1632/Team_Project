@@ -72,9 +72,13 @@ public class Main {
                 + "create role DATABASE_ADMIN;"
                 + "create role CUSTOMER;"
                 + "create role MARKETING;"
-                + "grant select on landWithHouse, landWithoutHouse to CUSTOMER;"
-                + "grant select on landWithHouse, landWithoutHouse, sales to MARKETING;"
-                + "grant select on agent, office to MANAGER;"
+                + "grant select on landWithHouse to CUSTOMER;"
+                + "grant select on landWithoutHouse to CUSTOMER;"
+                + "grant select on landWithHouse to MARKETING;"
+                + "grant select on landWithoutHouse to MARKETING;"
+                + "grant select on sales to MARKETING;"
+                + "grant select on agent to MANAGER;"
+                + "grant select on office to MANAGER;"
                 + "grant alter any schema to DATABASE_ADMIN;"
                 ;
         try {
@@ -93,7 +97,9 @@ public class Main {
     public Users userInput(Connection conn){
 
         System.out.print("Enter your usertype (Ex: Manager, Database Administrator, Customer, Marketing): ");
+
         Scanner scanner = new Scanner(System.in);
+
         String usertype = scanner.nextLine();
         Users user = new Users(usertype.toLowerCase());
 
@@ -186,15 +192,18 @@ public class Main {
         test.createConnection(location, user, password);
         Connection conn = test.getConnection();
         test.reset(conn);
-
         test.initializeTables(conn);
         test.initializeUsers(conn);
 
+
+
         Users userType = test.userInput(conn);
 
-        if(userType == null){             return;        }
-        test.inputLoop(userType);
+        if(userType == null){
+            return;
+        }
 
+        test.inputLoop(userType);
         test.reset(conn);
         test.closeConnection();
     }

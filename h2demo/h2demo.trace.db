@@ -163,3 +163,191 @@ org.h2.jdbc.JdbcSQLException: Invalid value "0" for parameter "columnIndex" [900
 	at org.h2.jdbc.JdbcResultSet.getInt(JdbcResultSet.java:328)
 	at SalesTable.printSalesTable(SalesTable.java:237)
 	at Main.main(Main.java:114)
+2019-03-24 04:38:47 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.RuntimeException: Prepared.getObjectId() was called before"; SQL statement:
+grant select on landWithHouse, landWithoutHouse to CUSTOMER; [50000-199]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:502)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:427)
+	at org.h2.message.DbException.get(DbException.java:194)
+	at org.h2.message.DbException.convert(DbException.java:347)
+	at org.h2.command.Command.executeUpdate(Command.java:280)
+	at org.h2.command.CommandList.update(CommandList.java:62)
+	at org.h2.command.CommandList.executeRemaining(CommandList.java:55)
+	at org.h2.command.CommandList.update(CommandList.java:63)
+	at org.h2.command.CommandList.executeRemaining(CommandList.java:55)
+	at org.h2.command.CommandList.update(CommandList.java:63)
+	at org.h2.command.Command.executeUpdate(Command.java:267)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:233)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:205)
+	at Main.initializeUsers(Main.java:82)
+	at Main.main(Main.java:191)
+Caused by: java.lang.RuntimeException: Prepared.getObjectId() was called before
+	at org.h2.message.DbException.throwInternalError(DbException.java:293)
+	at org.h2.command.Prepared.getObjectId(Prepared.java:274)
+	at org.h2.command.ddl.GrantRevoke.grantRight(GrantRevoke.java:123)
+	at org.h2.command.ddl.GrantRevoke.grantRight(GrantRevoke.java:115)
+	at org.h2.command.ddl.GrantRevoke.update(GrantRevoke.java:100)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:133)
+	at org.h2.command.Command.executeUpdate(Command.java:267)
+	... 10 more
+2019-03-24 04:41:06 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.RuntimeException: Prepared.getObjectId() was called before"; SQL statement:
+grant select on landWithHouse, landWithoutHouse to CUSTOMER; [50000-199]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:502)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:427)
+	at org.h2.message.DbException.get(DbException.java:194)
+	at org.h2.message.DbException.convert(DbException.java:347)
+	at org.h2.command.Command.executeUpdate(Command.java:280)
+	at org.h2.command.CommandList.update(CommandList.java:62)
+	at org.h2.command.CommandList.executeRemaining(CommandList.java:55)
+	at org.h2.command.CommandList.update(CommandList.java:63)
+	at org.h2.command.CommandList.executeRemaining(CommandList.java:55)
+	at org.h2.command.CommandList.update(CommandList.java:63)
+	at org.h2.command.Command.executeUpdate(Command.java:267)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:233)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:205)
+	at Main.initializeUsers(Main.java:82)
+	at Main.main(Main.java:191)
+Caused by: java.lang.RuntimeException: Prepared.getObjectId() was called before
+	at org.h2.message.DbException.throwInternalError(DbException.java:293)
+	at org.h2.command.Prepared.getObjectId(Prepared.java:274)
+	at org.h2.command.ddl.GrantRevoke.grantRight(GrantRevoke.java:123)
+	at org.h2.command.ddl.GrantRevoke.grantRight(GrantRevoke.java:115)
+	at org.h2.command.ddl.GrantRevoke.update(GrantRevoke.java:100)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:133)
+	at org.h2.command.Command.executeUpdate(Command.java:267)
+	... 10 more
+2019-03-24 05:23:43 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.RuntimeException: Prepared.getObjectId() was called before"; SQL statement:
+grant select on landWithHouse, landWithoutHouse to CUSTOMER; [50000-199]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:502)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:427)
+	at org.h2.message.DbException.get(DbException.java:194)
+	at org.h2.message.DbException.convert(DbException.java:347)
+	at org.h2.command.Command.executeUpdate(Command.java:280)
+	at org.h2.command.CommandList.update(CommandList.java:62)
+	at org.h2.command.CommandList.executeRemaining(CommandList.java:55)
+	at org.h2.command.CommandList.update(CommandList.java:63)
+	at org.h2.command.CommandList.executeRemaining(CommandList.java:55)
+	at org.h2.command.CommandList.update(CommandList.java:63)
+	at org.h2.command.Command.executeUpdate(Command.java:267)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:233)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:205)
+	at Main.initializeUsers(Main.java:82)
+	at Main.main(Main.java:193)
+Caused by: java.lang.RuntimeException: Prepared.getObjectId() was called before
+	at org.h2.message.DbException.throwInternalError(DbException.java:293)
+	at org.h2.command.Prepared.getObjectId(Prepared.java:274)
+	at org.h2.command.ddl.GrantRevoke.grantRight(GrantRevoke.java:123)
+	at org.h2.command.ddl.GrantRevoke.grantRight(GrantRevoke.java:115)
+	at org.h2.command.ddl.GrantRevoke.update(GrantRevoke.java:100)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:133)
+	at org.h2.command.Command.executeUpdate(Command.java:267)
+	... 10 more
+2019-03-24 05:24:05 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LANDWITHHOUSE" not found; SQL statement:
+grant select on landWithHouse, landWithoutHouse to CUSTOMER;grant select on landWithHouse, landWithoutHouse, sales to MARKETING;grant select on agent, office to MANAGER;grant alter any schema to DATABASE_ADMIN; [42102-199]
+2019-03-24 05:25:44 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LANDWITHHOUSE" not found; SQL statement:
+grant select on landWithHouse, landWithoutHouse to CUSTOMER;grant select on landWithHouse, landWithoutHouse, sales to MARKETING;grant select on agent, office to MANAGER;grant alter any schema to DATABASE_ADMIN; [42102-199]
+2019-03-24 05:27:08 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.RuntimeException: Prepared.getObjectId() was called before"; SQL statement:
+grant select on landWithHouse, landWithoutHouse to CUSTOMER; [50000-199]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:502)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:427)
+	at org.h2.message.DbException.get(DbException.java:194)
+	at org.h2.message.DbException.convert(DbException.java:347)
+	at org.h2.command.Command.executeUpdate(Command.java:280)
+	at org.h2.command.CommandList.update(CommandList.java:62)
+	at org.h2.command.CommandList.executeRemaining(CommandList.java:55)
+	at org.h2.command.CommandList.update(CommandList.java:63)
+	at org.h2.command.CommandList.executeRemaining(CommandList.java:55)
+	at org.h2.command.CommandList.update(CommandList.java:63)
+	at org.h2.command.Command.executeUpdate(Command.java:267)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:233)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:205)
+	at Main.initializeUsers(Main.java:82)
+	at Main.main(Main.java:192)
+Caused by: java.lang.RuntimeException: Prepared.getObjectId() was called before
+	at org.h2.message.DbException.throwInternalError(DbException.java:293)
+	at org.h2.command.Prepared.getObjectId(Prepared.java:274)
+	at org.h2.command.ddl.GrantRevoke.grantRight(GrantRevoke.java:123)
+	at org.h2.command.ddl.GrantRevoke.grantRight(GrantRevoke.java:115)
+	at org.h2.command.ddl.GrantRevoke.update(GrantRevoke.java:100)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:133)
+	at org.h2.command.Command.executeUpdate(Command.java:267)
+	... 10 more
+2019-03-24 05:30:33 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.RuntimeException: Prepared.getObjectId() was called before"; SQL statement:
+grant select on landWithHouse, landWithoutHouse to CUSTOMER; [50000-199]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:502)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:427)
+	at org.h2.message.DbException.get(DbException.java:194)
+	at org.h2.message.DbException.convert(DbException.java:347)
+	at org.h2.command.Command.executeUpdate(Command.java:280)
+	at org.h2.command.CommandList.update(CommandList.java:62)
+	at org.h2.command.CommandList.executeRemaining(CommandList.java:55)
+	at org.h2.command.CommandList.update(CommandList.java:63)
+	at org.h2.command.CommandList.executeRemaining(CommandList.java:55)
+	at org.h2.command.CommandList.update(CommandList.java:63)
+	at org.h2.command.Command.executeUpdate(Command.java:267)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:233)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:205)
+	at Main.initializeUsers(Main.java:82)
+	at Main.main(Main.java:192)
+Caused by: java.lang.RuntimeException: Prepared.getObjectId() was called before
+	at org.h2.message.DbException.throwInternalError(DbException.java:293)
+	at org.h2.command.Prepared.getObjectId(Prepared.java:274)
+	at org.h2.command.ddl.GrantRevoke.grantRight(GrantRevoke.java:123)
+	at org.h2.command.ddl.GrantRevoke.grantRight(GrantRevoke.java:115)
+	at org.h2.command.ddl.GrantRevoke.update(GrantRevoke.java:100)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:133)
+	at org.h2.command.Command.executeUpdate(Command.java:267)
+	... 10 more
+2019-03-24 05:30:54 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.RuntimeException: Prepared.getObjectId() was called before"; SQL statement:
+grant select on landWithHouse, landWithoutHouse to CUSTOMER; [50000-199]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:502)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:427)
+	at org.h2.message.DbException.get(DbException.java:194)
+	at org.h2.message.DbException.convert(DbException.java:347)
+	at org.h2.command.Command.executeUpdate(Command.java:280)
+	at org.h2.command.CommandList.update(CommandList.java:62)
+	at org.h2.command.CommandList.executeRemaining(CommandList.java:55)
+	at org.h2.command.CommandList.update(CommandList.java:63)
+	at org.h2.command.CommandList.executeRemaining(CommandList.java:55)
+	at org.h2.command.CommandList.update(CommandList.java:63)
+	at org.h2.command.Command.executeUpdate(Command.java:267)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:233)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:205)
+	at Main.initializeUsers(Main.java:82)
+	at Main.main(Main.java:192)
+Caused by: java.lang.RuntimeException: Prepared.getObjectId() was called before
+	at org.h2.message.DbException.throwInternalError(DbException.java:293)
+	at org.h2.command.Prepared.getObjectId(Prepared.java:274)
+	at org.h2.command.ddl.GrantRevoke.grantRight(GrantRevoke.java:123)
+	at org.h2.command.ddl.GrantRevoke.grantRight(GrantRevoke.java:115)
+	at org.h2.command.ddl.GrantRevoke.update(GrantRevoke.java:100)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:133)
+	at org.h2.command.Command.executeUpdate(Command.java:267)
+	... 10 more
+2019-03-24 05:39:20 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Role "LANDWITHHOUSE" not found; SQL statement:
+grant landWithHouse, landWithoutHouse to CUSTOMER; [90070-199]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:573)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:427)
+	at org.h2.message.DbException.get(DbException.java:205)
+	at org.h2.message.DbException.get(DbException.java:181)
+	at org.h2.command.ddl.GrantRevoke.update(GrantRevoke.java:88)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:133)
+	at org.h2.command.Command.executeUpdate(Command.java:267)
+	at org.h2.command.CommandList.update(CommandList.java:62)
+	at org.h2.command.CommandList.executeRemaining(CommandList.java:55)
+	at org.h2.command.CommandList.update(CommandList.java:63)
+	at org.h2.command.CommandList.executeRemaining(CommandList.java:55)
+	at org.h2.command.CommandList.update(CommandList.java:63)
+	at org.h2.command.Command.executeUpdate(Command.java:267)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:233)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:205)
+	at Main.initializeUsers(Main.java:82)
+	at Main.main(Main.java:192)

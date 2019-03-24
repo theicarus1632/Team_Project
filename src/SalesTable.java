@@ -67,6 +67,9 @@ public class SalesTable {
                     + "SELLERID INT,"
                     + "OFFICEID INT,"
                     + "LOCATION VARCHAR(255),"
+                    + "foreign key (BUYERID) references client,"
+                    + "foreign key (SELLERID) references client,"
+                    + "foreign key (OFFICEID) references office"
                     + ");" ;
             /**
              * Create a query and execute

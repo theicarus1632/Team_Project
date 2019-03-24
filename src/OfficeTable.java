@@ -37,7 +37,11 @@ public class OfficeTable {
                     + "LOCATION VARCHAR(255),"
                     + "ADDRESS VARCHAR(255),"
                     + "MANAGERID INT,"
+/*
+                    + "foreign key (MANAGERID) references agent"
+*/
                     + ");" ;
+                    //TODO: fix the circular references
             Statement stmt = conn.createStatement();
             stmt.execute(query);
         } catch (SQLException e){
@@ -129,7 +133,7 @@ public class OfficeTable {
             Statement stmt = conn.createStatement();
             ResultSet result = stmt.executeQuery(query);
             while(result.next()){
-                System.out.printf("Office %d: %s %s %d\n",
+                printOffice(
                         result.getInt(1),
                         result.getString(2),
                         result.getString(3),
@@ -138,5 +142,9 @@ public class OfficeTable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void printOffice(int id, String location, String address, int managerID){
+        System.out.printf("Office %d:\n\tLocation: %s\n\tAddress: %s\n\tManagerID: %d\n", id, location, address, managerID);
     }
 }

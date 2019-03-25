@@ -1,8 +1,9 @@
-
+//this class represents a property without a house on it
 public class LandWithoutHouse extends Property {
 
     private String landClass;
 
+    //this is the constructor for this class
     public LandWithoutHouse(int id,
                          int price,
                          int l_size,

@@ -1,12 +1,14 @@
 import java.text.DateFormat;
 import java.util.Date;
 
+//this class is a representation of properties with houses on them 
 public class LandWithHouse extends Property {
     private int bedCount;
     private int bathCount;
     private int h_size;
 
 
+    //this is the constructor for this class
     public LandWithHouse(int id,
                          int price,
                          int l_size,
